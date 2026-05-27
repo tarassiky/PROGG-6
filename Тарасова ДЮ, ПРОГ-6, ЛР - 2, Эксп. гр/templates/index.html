@@ -1,0 +1,77 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск публикаций в Crossref</title>
+    <!-- Bootstrap 5 CSS (адаптивная сетка) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card { transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .affiliation-badge { background-color: #e9ecef; color: #495057; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">📚 Поиск научных публикаций</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form method="POST" class="card p-4 shadow-sm">
+                    <div class="mb-3">
+                        <label for="author" class="form-label">Автор (можно несколько через запятую)</label>
+                        <input type="text" class="form-control" id="author" name="author"
+                               placeholder="Например: Иванов, Петров" value="{{ request.form.get('author', '') }}">
+                        <div class="form-text">Поиск по фамилии и имени. Для параллельного поиска перечислите авторов через запятую.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Название статьи</label>
+                        <input type="text" class="form-control" id="title" name="title"
+                               placeholder="Введите название" value="{{ request.form.get('title', '') }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">🔍 Найти</button>
+                </form>
+            </div>
+        </div>
+
+        {% if error %}
+        <div class="alert alert-danger mt-4" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        {% if results %}
+        <div class="mt-5">
+            <h3>Результаты ({{ results|length }})</h3>
+            <div class="row row-cols-1 row-cols-md-2 g-4 mt-2">
+                {% for pub in results %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ pub.title }}</h5>
+                            <p class="card-text">
+                                <strong>✍️ Автор:</strong> {{ pub.author if pub.author else "Не указан" }}<br>
+                                <strong>📖 Журнал/сборник:</strong> {{ pub.journal }}<br>
+                                <strong>📅 Год:</strong> {{ pub.year }}<br>
+                                <strong>🏛️ Аффилиация (первого автора):</strong>
+                                <span class="affiliation-badge px-2 py-1 rounded">{{ pub.affiliation }}</span>
+                            </p>
+                            {% if pub.doi %}
+                            <a href="https://doi.org/{{ pub.doi }}" target="_blank" class="btn btn-sm btn-outline-secondary">DOI: {{ pub.doi }}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <footer class="text-center text-muted mt-5 mb-3">
+        Данные получены через API Crossref (CC0)
+    </footer>
+    <!-- Bootstrap JS (опционально для интерактива) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
