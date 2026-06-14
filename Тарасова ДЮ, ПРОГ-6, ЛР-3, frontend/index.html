@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ипотечный консультант | Neural Credit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+  <div class="app">
+    <div class="container">
+      <header>
+        <div>
+          <h1>Ипотечный консультант</h1>
+          <p class="subtitle">Оценка вероятности одобрения на основе ML</p>
+        </div>
+        <button id="themeToggle" class="theme-toggle" aria-label="Переключить тему">
+          <span class="theme-icon">🌙</span>
+          <span>Тёмная тема</span>
+        </button>
+      </header>
+
+      <div class="grid-2">
+        <!-- Левая колонка -->
+        <div class="card glass">
+          <div class="card-header">
+            <h2>Индивидуальная заявка</h2>
+            <span class="badge">Форма</span>
+          </div>
+          <form id="loanForm" class="form">
+            <div class="form-row">
+              <div class="field">
+                <label>Возраст (лет)</label>
+                <input type="number" id="person_age" step="1" value="35">
+              </div>
+              <div class="field">
+                <label>Пол</label>
+                <select id="person_gender">
+                  <option value="male">Мужской</option>
+                  <option value="female">Женский</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label>Образование</label>
+                <select id="person_education">
+                  <option>Bachelor</option><option>Master</option><option>PhD</option><option>High School</option><option>Associate</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Годовой доход ($)</label>
+                <input type="number" id="person_income" step="1000" value="75000">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label>Стаж работы (лет)</label>
+                <input type="number" id="person_emp_exp" step="1" value="5">
+              </div>
+              <div class="field">
+                <label>Статус жилья</label>
+                <select id="person_home_ownership">
+                  <option>rent</option><option>own</option><option>mortgage</option><option>other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label>Сумма кредита ($)</label>
+                <input type="number" id="loan_amnt" step="5000" value="200000">
+              </div>
+              <div class="field">
+                <label>Цель кредита</label>
+                <select id="loan_intent">
+                  <option>homeimprovement</option><option>debtconsolidation</option><option>medical</option><option>education</option><option>majorpurchase</option><option>smallbusiness</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label>Процентная ставка (%)</label>
+                <input type="number" id="loan_int_rate" step="0.1" value="4.5">
+              </div>
+              <div class="field">
+                <label>Доход / сумма кредита</label>
+                <input type="number" id="loan_percent_income" step="0.01" value="0.27">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label>Кредитная история (лет)</label>
+                <input type="number" id="cb_person_cred_hist_length" step="1" value="8">
+              </div>
+              <div class="field">
+                <label>Кредитный рейтинг</label>
+                <input type="number" id="credit_score" step="5" value="710">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field full-width">
+                <label>Были дефолты ранее</label>
+                <select id="previous_loan_defaults_on_file">
+                  <option value="No">Нет</option><option value="Yes">Да</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" id="predictBtn" class="btn btn-primary">Рассчитать вероятность</button>
+          </form>
+          <div id="singleResult" class="result-card" style="display: none;">
+            <div class="result-badge"></div>
+          </div>
+        </div>
+
+        <!-- Правая колонка -->
+        <div class="card glass">
+          <div class="card-header">
+            <h2>Массовый анализ</h2>
+            <span class="badge">CSV</span>
+          </div>
+          <div class="csv-area">
+            <label for="csvFile" class="file-label">
+              <span>Выбрать файл</span>
+              <input type="file" id="csvFile" accept=".csv">
+            </label>
+            <button id="uploadCsvBtn" class="btn btn-secondary">Загрузить и предсказать</button>
+          </div>
+          <div id="csvResult" style="display: none;">
+            <div class="metric-card">
+              <span class="metric-label">ROC-AUC</span>
+              <strong id="rocValue" class="metric-value">—</strong>
+            </div>
+            <div class="table-wrapper">
+              <table id="resultTable">
+                <thead>
+                  <tr><th>#</th><th>predicted_loan_status</th><th>…</th></tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+    <div class="spinner"></div>
+    <p>Обработка данных...</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
