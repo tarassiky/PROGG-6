@@ -1,0 +1,32 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.136.3",
+    "joblib>=1.5.3",
+    "numpy>=2.4.6",
+    "pandas>=3.0.3",
+    "python-multipart>=0.0.31",
+    "scikit-learn>=1.9.0",
+    "uvicorn[standard]>=0.49.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.0.3",
+    "pytest-asyncio>=1.4.0",
+]
+
+[tool.pytest.ini_options]
+# Отключаем asyncio-режим по умолчанию (у нас синхронные тесты через TestClient)
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+# Базовая конфигурация линтера ruff (быстрая замена flake8)
+line-length = 100
+target-version = "py312"
