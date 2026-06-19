@@ -420,3 +420,9 @@ const API_BASE = 'http://localhost:8000'; // адрес бэкенда
 Интерфейс демонстрирует современный дизайн с использованием glassmorphism и поддержкой двух тем, что создаёт приятный пользовательский опыт и соответствует требованиям к качеству программного продукта.
 
 ---
+
+<img width="1276" height="1013" alt="image" src="https://github.com/user-attachments/assets/11b38d42-4cef-49f4-81a3-e40b60e6cfb3" />
+
+<img width="1274" height="948" alt="image" src="https://github.com/user-attachments/assets/345bfd22-208f-4288-8207-554ba8f9aed4" />
+
+
