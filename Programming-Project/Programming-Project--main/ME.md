@@ -421,8 +421,15 @@ const API_BASE = 'http://localhost:8000'; // адрес бэкенда
 
 ---
 
-<img width="1276" height="1013" alt="image" src="https://github.com/user-attachments/assets/11b38d42-4cef-49f4-81a3-e40b60e6cfb3" />
+<img width="2852" height="1754" alt="image" src="https://github.com/user-attachments/assets/e629f726-14c7-479b-9b4a-2c442e518dcd" />
+<img width="2928" height="732" alt="image" src="https://github.com/user-attachments/assets/8520fc1f-0518-4458-9b51-f4840d54e6f1" />
 
-<img width="1274" height="948" alt="image" src="https://github.com/user-attachments/assets/345bfd22-208f-4288-8207-554ba8f9aed4" />
+---
+
+<img width="2916" height="1766" alt="image" src="https://github.com/user-attachments/assets/b1b3feed-6bc5-4314-a0e9-1dfcb7004279" />
+<img width="2916" height="666" alt="image" src="https://github.com/user-attachments/assets/84ebed9a-8919-4ef4-a905-9626fa186727" />
+
+
+
 
 
